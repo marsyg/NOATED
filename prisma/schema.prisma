@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  rootFolder  RootFolder?
+  folders     Folder[]
+  files       File[]
+  sharedItems SharedItem[]
+}
+
+model RootFolder {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  createdAt DateTime @default(now())
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folders Folder[]
+}
+
+model Folder {
+  id           String    @id @default(uuid())
+  name         String
+  userId       String
+  rootFolderId String?
+  // TODO : whenever the folder is initialised, will need to provide the root folder id
+  parentId     String?
+  isTrashed    Boolean   @default(false)
+  trashedAt    DateTime?
+  createdAt    DateTime  @default(now())
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rootFolder RootFolder? @relation(fields: [rootFolderId], references: [id], onDelete: Cascade)
+  parent     Folder?     @relation("FolderToFolder", fields: [parentId], references: [id], onDelete: SetNull)
+  subFolders Folder[]    @relation("FolderToFolder")
+  files      File[]
+}
+
+model File {
+  id        String    @id @default(uuid())
+  name      String
+  userId    String
+  folderId  String?
+  publicId  String
+  mimeType  String
+  size      BigInt
+  isTrashed Boolean   @default(false)
+  trashedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folder Folder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
+}
+
+model SharedItem {
+  id          String   @id @default(uuid())
+  itemId      String
+  itemType    String   @default("file") // "file" or "folder"
+  sharedWith  String
+  accessLevel String   @default("view") // "view", "edit", "owner"
+  sharedAt    DateTime @default(now())
+
+  user User @relation(fields: [sharedWith], references: [id], onDelete: Cascade)
+}
+
