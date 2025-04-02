@@ -1,3 +1,4 @@
+'use server'
 import { handleError } from "@/lib/handleError";
 import prisma from "@/lib/prisma";
 

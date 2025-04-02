@@ -1,3 +1,4 @@
+'use server'
 import { handleError } from "@/lib/handleError";
 import prisma from "@/lib/prisma";
 
@@ -6,7 +7,7 @@ async function uploadFile(
   userId: string,
   folderId: string,
   mimeType: string,
-  size: bigint,
+    size: bigint,
   publicId: string
 ) {
   try {

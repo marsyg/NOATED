@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     // fs.unlinkSync(filePath);
 
     return NextResponse.json(
-      { success: true, message: 'File uploaded successfully' },
+      { success: true, message: 'File uploaded successfully', text: text },
       { status: 200 }
     );
   } catch (error: any) {
