@@ -6,13 +6,13 @@ import { zodResponseFormat } from 'openai/helpers/zod';
 
 export async function callNebius(docBase64: string) {
 	const ParagraphSchema = z.object({
-		// type: z.literal("paragraph"),
+		type: z.literal("paragraph"),
 		content: z.string(),
 	});
 
 	// Define a schema for a bullet note
 	const BulletSchema = z.object({
-		// type: z.literal("bullet"),
+		type: z.literal("bullet"),
 		title: z.string(),
 		content: z.string(),
 	});
@@ -34,16 +34,20 @@ export async function callNebius(docBase64: string) {
 		data: DataSchema,
 	});
 
-	console.log("I'm in Gemini-2.0-flash");
+	console.log("I'm gpt-4o");
 	try {
 		// Initialize the OpenAI client
 		const client = new OpenAI({
-			baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
-			apiKey: process.env.GEMINI_API_KEY,
+			// baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+			// apiKey: process.env.GEMINI_API_KEY,
+
+			baseURL:"https://api.aimlapi.com/v1",
+			apiKey: process.env.AIMLAPI_API_KEY,
 		});
 
 		const result = await client.beta.chat.completions.parse({
-			model: "gemini-2.0-flash",
+			// model: "gemini-2.0-flash",
+			model: "gpt-4o",
 			max_tokens: 512,
 			temperature: 0.5,
 			top_p: 0.9,
@@ -61,7 +65,7 @@ export async function callNebius(docBase64: string) {
 						{
 							type: "image_url",
 							image_url: { url: docBase64 },
-              // caused Error : 400 status code (no body found)
+							// caused Error : 400 status code (no body found)
 							// image_url: { url: `data:image/jpeg;base64,${docBase64}` },
 						},
 					],
