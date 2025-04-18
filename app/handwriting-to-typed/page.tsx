@@ -321,7 +321,7 @@ export default function HandwritingToTypedPage() {
               <Textarea
                 value={extractedText}
                 onChange={(e) => setExtractedText(e.target.value)}
-                className='min-h-[400px] bg-cream/50 border-wood/20 focus-visible:ring-forest pl-6'
+                className='min-h-[400px] bg-cream/50 border-wood/20 focus-visible:ring-forest pl-6 text-black'
               />
 
               <div className='flex flex-wrap gap-2 mt-4 pl-6'>
