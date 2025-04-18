@@ -240,12 +240,14 @@ export default function HandwritingToTypedPage() {
 
               {pdfUrl ? (
                 <div>
-                  <div>
-                    <a href={pdfUrl} target='_blank' rel='noopener noreferrer'>
-                      Open PDF
-                    </a>
-
-                    <iframe src={pdfUrl} width='100%' height='600px'></iframe>
+                  <div className="w-full h-[600px] border border-wood/20 rounded-md overflow-hidden">
+                    <iframe 
+                      src={`/${pdfUrl.split('/').pop()}`}
+                      width="100%" 
+                      height="100%"
+                      className="w-full h-full"
+                      sandbox="allow-same-origin allow-scripts"
+                    ></iframe>
                   </div>
                 </div>
               ) : (
@@ -395,7 +397,7 @@ export default function HandwritingToTypedPage() {
                         </div>
                       </div>
                     </RadioGroup>
-
+                              
                     <DialogFooter>
                       <Button className='bg-wood hover:bg-wood/80 text-cream'>
                         Add to Folder
