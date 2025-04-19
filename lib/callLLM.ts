@@ -4,7 +4,7 @@ import { systemPrompt } from '@/constant';
 import { z } from 'zod';
 import { zodResponseFormat } from 'openai/helpers/zod';
 
-export async function callNebius(docBase64: string) {
+export async function llmCall(docBase64: string) {
 
 	const ParagraphSchema = z.object({
 		type: z.literal("paragraph"),
