@@ -5,17 +5,18 @@ import { z } from 'zod';
 import { zodResponseFormat } from 'openai/helpers/zod';
 
 export async function callNebius(docBase64: string) {
-  const ParagraphSchema = z.object({
-    type: z.literal('paragraph'),
-    content: z.string(),
-  });
 
-  // Define a schema for a bullet note
-  const BulletSchema = z.object({
-    type: z.literal('bullet'),
-    title: z.string(),
-    content: z.string(),
-  });
+	const ParagraphSchema = z.object({
+		type: z.literal("paragraph"),
+		content: z.string(),
+	});
+
+	// Define a schema for a bullet note
+	const BulletSchema = z.object({
+		type: z.literal("bullet"),
+		title: z.string(),
+		content: z.string(),
+	});
 
   // A note can be either a paragraph or a bullet
   const NoteSchema = z.union([ParagraphSchema, BulletSchema]);
@@ -34,14 +35,18 @@ export async function callNebius(docBase64: string) {
     data: DataSchema,
   });
 
-  console.log("I'm in Gemini-2.0-flash");
-  try {
-    // Initialize the OpenAI client
-    const client = new OpenAI({
-      baseURL: 'https://api.aimlapi.com/v1',
-      apiKey: process.env.AIML_API_KEY,
-    });
+	console.log("I'm gpt-4o");
+	try {
+		// Initialize the OpenAI client
+		const client = new OpenAI({
+			// baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+			// apiKey: process.env.GEMINI_API_KEY,
 
+			baseURL:"https://api.aimlapi.com/v1",
+			apiKey: process.env.AIMLAPI_API_KEY,
+		});
+
+		
     const result = await client.beta.chat.completions.parse({
       model: 'gpt-4o',
       max_tokens: 512,
