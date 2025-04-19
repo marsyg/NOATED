@@ -38,12 +38,12 @@ export async function callNebius(docBase64: string) {
   try {
     // Initialize the OpenAI client
     const client = new OpenAI({
-      baseURL: 'https://api.groq.com/openai/v1/chat/completions',
-      apiKey: process.env.GROQ_API_KEY,
+      baseURL: 'https://api.aimlapi.com/v1',
+      apiKey: process.env.AIML_API_KEY,
     });
 
     const result = await client.beta.chat.completions.parse({
-      model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+      model: 'gpt-4o',
       max_tokens: 512,
       temperature: 0.5,
       top_p: 0.9,
