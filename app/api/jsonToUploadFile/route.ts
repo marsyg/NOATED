@@ -15,16 +15,16 @@ export async function POST(req: NextRequest) {
 			throw new Error("model call failed...");
 		}
 		// write json text to a temporary file
-		const filePath = `public/${filename}`;
+		// const filePath = `public/${filename}`;
 		// fs.writeFileSync(filePath, text!);
 
-		const uploadResult = await uploadCloudinary(filename, filePath);
+		// const uploadResult = await uploadCloudinary(filename, filePath);
 
-		if (!uploadResult) {
-			throw new Error("File upload failed...");
-		}
+		// if (!uploadResult) {
+		// 	throw new Error("File upload failed...");
+		// }
 
-		fs.unlinkSync(filePath);
+		// fs.unlinkSync(filePath);
 
 		return NextResponse.json(
 			{ success: true, message: "File uploaded successfully", text: text },

@@ -1,4 +1,7 @@
+"use server";
 import cloudinary from "./cloudinary";
+
+import fs from "fs";
 
 export async function uploadCloudinary(filename: string, filepath: string) {
 	try {
@@ -28,6 +31,8 @@ export async function uploadCloudinary(filename: string, filepath: string) {
 			throw new Error("No uploads found...");
 		}
 		console.log(uploadResult);
+
+		fs.unlinkSync(filepath);
 
 		return uploadResult;
 	} catch (error: any) {
