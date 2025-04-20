@@ -1,4 +1,3 @@
-
 //share file /folder
 // async function shareItem(itemId: string, itemType: "file" | "folder", sharedWith: string, accessLevel: "view" | "edit" | "owner") {
 //     return await prisma.sharedItem.create({
@@ -12,10 +11,10 @@
 //   }
 
 // get shared item for user
-// 
+//
 // async function getSharedItems(userId: string) {
 //   return await prisma.sharedItem.findMany({
-    // where: { sharedWith: userId },
+// where: { sharedWith: userId },
 //   });
 // }
 
