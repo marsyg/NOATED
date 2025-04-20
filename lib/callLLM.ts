@@ -43,7 +43,7 @@ export async function llmCall(docBase64: string) {
 			// apiKey: process.env.GEMINI_API_KEY,
 
 			baseURL:"https://api.aimlapi.com/v1",
-			apiKey: process.env.AIMLAPI_API_KEY,
+			apiKey: process.env.AIML_API_KEY,
 		});
 
 		
