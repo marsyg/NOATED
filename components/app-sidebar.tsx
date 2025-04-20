@@ -1,10 +1,10 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { motion } from "framer-motion"
-import { Home, Mic, PenTool, Settings, BookOpen, FolderOpen, Plus, BookMarked } from "lucide-react"
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { Home, Mic, PenTool, Settings, BookOpen, FolderOpen, Plus, BookMarked } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -14,23 +14,30 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+} from '@/components/ui/sidebar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const navItems = [
-  { name: "Home", href: "/", icon: Home },
-  { name: "Shelf", href: "/shelf", icon: FolderOpen },
-  { name: "Voice to typed", href: "/voice-to-typed", icon: Mic },
-  { name: "Handwriting to typed", href: "/handwriting-to-typed", icon: PenTool },
-  { name: "Public Notes", href: "/public-notes", icon: BookOpen },
-  { name: "Account", href: "/account", icon: Settings },
-]
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'Shelf', href: '/shelf', icon: FolderOpen },
+  { name: 'Voice to typed', href: '/voice-to-typed', icon: Mic },
+  { name: 'Handwriting to typed', href: '/handwriting-to-typed', icon: PenTool },
+  { name: 'Public Notes', href: '/public-notes', icon: BookOpen },
+  { name: 'Account', href: '/account', icon: Settings },
+];
+
+const userId = false;
 
 export function AppSidebar() {
-  const pathname = usePathname()
-  const [showNewButton, setShowNewButton] = useState(false)
+  const pathname = usePathname();
+  const [showNewButton, setShowNewButton] = useState(false);
 
   return (
     <Sidebar variant="sidebar" collapsible="icon" className="wood-panel border-r-0">
@@ -114,7 +121,10 @@ export function AppSidebar() {
       <SidebarFooter className="p-4 border-t border-cream/20">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-start gap-2 text-cream hover:bg-wood/50">
+            <Button
+              variant="ghost"
+              className="w-full justify-start gap-2 text-cream hover:bg-wood/50"
+            >
               <Avatar className="w-6 h-6 border border-cream/20">
                 <AvatarImage src="/placeholder-user.jpg" />
                 <AvatarFallback className="bg-terra text-cream">UN</AvatarFallback>
@@ -122,17 +132,20 @@ export function AppSidebar() {
               <span>User Name</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56 bg-cream border-wood">
+          <DropdownMenuContent align="end" className="w-56 bg-cream border-wood text-black">
             <DropdownMenuItem asChild>
               <Link href="/account">Account Settings</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>Sign out</DropdownMenuItem>
+            {!userId ? (
+              <DropdownMenuItem>Log in</DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem>Sign out</DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarFooter>
 
       <SidebarTrigger className="absolute top-4 right-4 md:hidden text-cream" />
     </Sidebar>
-  )
+  );
 }
-

@@ -1,41 +1,41 @@
-"use server";
-import cloudinary from "./cloudinary";
+'use server';
+import cloudinary from './cloudinary';
 
-import fs from "fs";
+import fs from 'fs';
 
 export async function uploadCloudinary(filename: string, filepath: string) {
-	try {
-		if (!filename) {
-			throw new Error("Please specify a file name...");
-		}
+  try {
+    if (!filename) {
+      throw new Error('Please specify a file name...');
+    }
 
-		if (!filepath) {
-			throw new Error("Please enter required file...");
-		}
-		console.log({
-			filename,
-			filepath,
-		});
+    if (!filepath) {
+      throw new Error('Please enter required file...');
+    }
+    console.log({
+      filename,
+      filepath,
+    });
 
-		console.log("Uploading an image...");
-		const uploadResult = await cloudinary.uploader
-			.upload(filepath, {
-				resource_type: "auto",
-				display_name: filename,
-			})
-			.catch((error) => {
-				throw new Error("Failed to upload file :: ", error.message);
-			});
+    console.log('Uploading an image...');
+    const uploadResult = await cloudinary.uploader
+      .upload(filepath, {
+        resource_type: 'auto',
+        display_name: filename,
+      })
+      .catch((error) => {
+        throw new Error('Failed to upload file :: ', error.message);
+      });
 
-		if (!uploadResult) {
-			throw new Error("No uploads found...");
-		}
-		console.log(uploadResult);
+    if (!uploadResult) {
+      throw new Error('No uploads found...');
+    }
+    console.log(uploadResult);
 
-		fs.unlinkSync(filepath);
+    fs.unlinkSync(filepath);
 
-		return uploadResult;
-	} catch (error: any) {
-		console.log("Error ::", error.message);
-	}
+    return uploadResult;
+  } catch (error: any) {
+    console.log('Error ::', error.message);
+  }
 }

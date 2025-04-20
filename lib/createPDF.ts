@@ -15,12 +15,7 @@ interface NotesSchema {
 }
 
 // Function to draw notes content
-const drawNotes = (
-  page: any,
-  notesData: NotesSchema,
-  x: number,
-  y: number
-): number => {
+const drawNotes = (page: any, notesData: NotesSchema, x: number, y: number): number => {
   const lineHeight = 18;
   const fontSize = 12;
 
@@ -66,9 +61,7 @@ const drawNotes = (
 };
 
 // PDF generation function
-export const createNotesPdf = async (
-  notesData: NotesSchema
-): Promise<string> => {
+export const createNotesPdf = async (notesData: NotesSchema): Promise<string> => {
   try {
     console.log('Creating PDF...');
     console.log('Notes Data:', notesData);
@@ -93,11 +86,7 @@ export const createNotesPdf = async (
 
     // Save PDF
     const pdfBytes = await pdfDoc.save();
-    const filePath = path.join(
-      process.cwd(),
-      'public',
-      `notes-${Date.now()}.pdf`
-    );
+    const filePath = path.join(process.cwd(), 'public', `notes-${Date.now()}.pdf`);
     fs.writeFileSync(filePath, pdfBytes);
     console.log('PDF created successfully:', filePath);
     return filePath;

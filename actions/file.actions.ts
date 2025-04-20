@@ -1,14 +1,14 @@
-'use server'
-import { handleError } from "@/lib/handleError";
-import prisma from "@/lib/prisma";
+'use server';
+import { handleError } from '@/lib/handleError';
+import prisma from '@/lib/prisma';
 
 async function uploadFile(
   name: string,
   userId: string,
   folderId: string,
   mimeType: string,
-    size: bigint,
-  publicId: string
+  size: bigint,
+  publicId: string,
 ) {
   try {
     const ifFileWithSameNameExist = await prisma.file.findFirst({
@@ -19,8 +19,7 @@ async function uploadFile(
         isTrashed: false,
       },
     });
-    if (!ifFileWithSameNameExist)
-      throw new Error("File with same name already exists");
+    if (!ifFileWithSameNameExist) throw new Error('File with same name already exists');
 
     const file = await prisma.file.create({
       data: { name, userId, folderId, mimeType, size, publicId },
